@@ -3,6 +3,7 @@ import { generateSlugHook } from './hooks/hook-generate-slug'
 import { generateExcerptHook } from './hooks/hook-generate-excerpt'
 import { et } from 'payload/i18n/et'
 import { convertLexicalToPlaintext } from '@payloadcms/richtext-lexical/plaintext'
+import { POST_STATUS } from './constants'
 
 export const Posts: CollectionConfig = {
   slug: 'posts',
@@ -74,10 +75,10 @@ export const Posts: CollectionConfig = {
       name: 'status',
       type: 'select',
       options: [
-        { label: 'Draft', value: 'draft' },
-        { label: 'Published', value: 'published' },
+        { label: 'Draft', value: POST_STATUS.DRAFT },
+        { label: 'Published', value: POST_STATUS.PUBLISHED },
       ],
-      defaultValue: 'draft',
+      defaultValue: POST_STATUS.DRAFT,
       required: true,
     },
     {
@@ -85,7 +86,7 @@ export const Posts: CollectionConfig = {
       type: 'date',
       defaultValue: () => new Date(),
       admin: {
-        condition: (data) => data?.status === 'published',
+        condition: (data) => data?.status === POST_STATUS.PUBLISHED,
         date: { pickerAppearance: 'dayAndTime' },
       },
     },

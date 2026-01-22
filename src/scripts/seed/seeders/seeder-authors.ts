@@ -1,8 +1,3 @@
-import { getPayload } from 'payload'
-import config from '@/payload.config'
-import React from 'react'
-import { isDuplicateError } from './lib/is-duplicate-error'
-import { env } from './lib/env'
 import { Payload } from 'payload'
 import { faker } from '@faker-js/faker'
 import { AUTHORS_ROLE_OPTIONS } from '@/collections/Authors/constants'

@@ -1,8 +1,8 @@
 import { Post } from '@/payload-types'
 import { convertLexicalToPlaintext } from 'node_modules/@payloadcms/richtext-lexical/dist/features/converters/lexicalToPlaintext/sync'
 import { FieldHook } from 'payload'
+import { MAX_EXCERPT_LENGTH } from '../constants'
 
-const MAX_EXCERPT_LENGTH = 160
 export const generateExcerptHook: FieldHook<Post, string> = ({ value, data }) => {
   if (value) return value.trim()
   if (!data?.content) return ''
