@@ -32,6 +32,13 @@ export default async function PostsSeeder(payload: Payload) {
 
       const postStatus = faker.helpers.arrayElement(Object.values(POST_STATUS))
 
+      const authors = await payload.find({
+        collection: 'authors',
+        limit: 10,
+      })
+
+      const randomAuthor = faker.helpers.arrayElement(authors.docs)
+
       await payload.create({
         collection: 'posts',
         data: {
@@ -40,7 +47,7 @@ export default async function PostsSeeder(payload: Payload) {
           content: contentLaxical,
           excerpt: postContent.slice(0, MAX_EXCERPT_LENGTH),
           coverImage: image.id,
-          author: faker.person.fullName(),
+          author: randomAuthor.id,
           status: postStatus,
           ...(postStatus === POST_STATUS.PUBLISHED && {
             publishedAt: faker.date.recent() as unknown as string,
