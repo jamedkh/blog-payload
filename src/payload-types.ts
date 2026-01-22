@@ -204,7 +204,7 @@ export interface Author {
   id: string;
   name: string;
   avatar: string | Media;
-  role: 'author' | 'editor' | 'guest' | 'admin' | 'super-admin';
+  role: 'editor' | 'guest' | 'admin' | 'super-admin';
   bio: string;
   updatedAt: string;
   createdAt: string;
