@@ -3,7 +3,9 @@ import { generateSlugHook } from './hooks/hook-generate-slug'
 import { generateExcerptHook } from './hooks/hook-generate-excerpt'
 import { et } from 'payload/i18n/et'
 import { convertLexicalToPlaintext } from '@payloadcms/richtext-lexical/plaintext'
-import { POST_STATUS } from './constants'
+import { POST_CACHE_TAG, POST_STATUS } from './constants'
+import { revalidateTag, unstable_cache } from 'next/cache'
+import { getPosts } from './fetchers'
 
 export const Posts: CollectionConfig = {
   slug: 'posts',
@@ -91,4 +93,8 @@ export const Posts: CollectionConfig = {
       },
     },
   ],
+
+  hooks: {
+    afterChange: [() => revalidateTag(POST_CACHE_TAG)],
+  },
 }
