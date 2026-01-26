@@ -1,9 +1,10 @@
-// components/PostSingle.tsx
+import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'
+import { RichText } from './richtext'
 
 interface PostSingleProps {
   coverImage: string
   title: string
-  content: string
+  content: SerializedEditorState
   publishedDate: string
   readTime: string
   author: string
@@ -35,7 +36,9 @@ export default function PostSingle({
       </div>
 
       {/* Content */}
-      <div className="prose dark:prose-invert max-w-none">{content}</div>
+      <div className="prose dark:prose-invert max-w-none">
+        <RichText lexicalData={content} />
+      </div>
     </article>
   )
 }

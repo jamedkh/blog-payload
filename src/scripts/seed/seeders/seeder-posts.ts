@@ -15,6 +15,7 @@ export default async function PostsSeeder(payload: Payload) {
 
   for (let i = 0; i < POSTS_COUNT; i++) {
     try {
+      // add width and height to faker.image.urlPicsumPhotos()
       const imageURL = faker.image.urlPicsumPhotos()
       const image = await createMedia(payload, imageURL)
 
