@@ -1,67 +1,101 @@
-# Payload Blank Template
+# Blog Payload
 
-This template comes configured with the bare minimum to get started on anything you need.
+A modern, highly customizable blog template built with **Payload 3.0** (CMS) and **Next.js 15**. Designed for performance, scalability, and ease of use.
 
-## Quick start
+## 🚀 Tech Stack
 
-This template can be deployed directly from our Cloud hosting and it will setup MongoDB and cloud S3 object storage for media.
+- **Framework:** [Next.js 15](https://nextjs.org/) (App Router)
+- **CMS:** [Payload 3.0](https://payloadcms.com/)
+- **Database:** MongoDB (via `@payloadcms/db-mongodb`)
+- **Styling:** [Tailwind CSS 4](https://tailwindcss.com/)
+- **Rich Text:** Payload Lexical Editor
+- **Type Safety:** TypeScript
 
-## Quick Start - local setup
+## 🛠️ Getting Started
 
-To spin up this template locally, follow these steps:
+### Prerequisites
 
-### Clone
+- Node.js 18+
+- pnpm (recommended) or npm/yarn
+- MongoDB connection string
 
-After you click the `Deploy` button above, you'll want to have standalone copy of this repo on your machine. If you've already cloned this repo, skip to [Development](#development).
+### Installation
 
-### Development
+1.  **Clone the repository:**
 
-1. First [clone the repo](#clone) if you have not done so already
-2. `cd my-project && cp .env.example .env` to copy the example environment variables. You'll need to add the `MONGODB_URL` from your Cloud project to your `.env` if you want to use S3 storage and the MongoDB database that was created for you.
+    ```bash
+    git clone <repository-url>
+    cd blog-payload
+    ```
 
-3. `pnpm install && pnpm dev` to install dependencies and start the dev server
-4. open `http://localhost:3000` to open the app in your browser
+2.  **Install dependencies:**
 
-That's it! Changes made in `./src` will be reflected in your app. Follow the on-screen instructions to login and create your first admin user. Then check out [Production](#production) once you're ready to build and serve your app, and [Deployment](#deployment) when you're ready to go live.
+    ```bash
+    pnpm install
+    ```
 
-#### Docker (Optional)
+3.  **Environment Setup:**
+    Copy the example environment file and fill in your details:
 
-If you prefer to use Docker for local development instead of a local MongoDB instance, the provided docker-compose.yml file can be used.
+    ```bash
+    cp .env.example .env
+    ```
 
-To do so, follow these steps:
+    Ensure you provide a valid `DATABASE_URI` (MongoDB connection string) and `PAYLOAD_SECRET`.
 
-- Modify the `MONGODB_URL` in your `.env` file to `mongodb://127.0.0.1/<dbname>`
-- Modify the `docker-compose.yml` file's `MONGODB_URL` to match the above `<dbname>`
-- Run `docker-compose up` to start the database, optionally pass `-d` to run in the background.
+4.  **Run the development server:**
+    ```bash
+    pnpm dev
+    ```
+    The app will be available at `http://localhost:3000`.
+    Payload Admin Panel: `http://localhost:3000/admin`.
 
-## How it works
+## 🌱 Database Seeding
 
-The Payload config is tailored specifically to the needs of most websites. It is pre-configured in the following ways:
+This project comes with scripts to populate your database with initial data (dummy posts, authors, media).
 
-### Collections
+### Run Seeder
 
-See the [Collections](https://payloadcms.com/docs/configuration/collections) docs for details on how to extend this functionality.
+To seed the database with sample data:
 
-- #### Users (Authentication)
+```bash
+pnpm seed
+```
 
-  Users are auth-enabled collections that have access to the admin panel.
+### Reset Database
 
-  For additional help, see the official [Auth Example](https://github.com/payloadcms/payload/tree/main/examples/auth) or the [Authentication](https://payloadcms.com/docs/authentication/overview#authentication-overview) docs.
+To clear all data and reset the database:
 
-- #### Media
+```bash
+pnpm seed:reset
+```
 
-  This is the uploads enabled collection. It features pre-configured sizes, focal point and manual resizing to help you manage your pictures.
+> **Warning:** This will delete all entries in your database. Use with caution.
 
-### Docker
+## 📜 Available Scripts
 
-Alternatively, you can use [Docker](https://www.docker.com) to spin up this template locally. To do so, follow these steps:
+| Script                | Description                                         |
+| :-------------------- | :-------------------------------------------------- |
+| `pnpm dev`            | Starts the Next.js development server.              |
+| `pnpm build`          | Builds the application for production.              |
+| `pnpm start`          | Starts the production server.                       |
+| `pnpm lint`           | Runs ESLint to check for code quality issues.       |
+| `pnpm generate:types` | Generates TypeScript types for Payload collections. |
+| `pnpm seed`           | Seeds the database with dummy content.              |
+| `pnpm seed:reset`     | Resets the database (clears all data).              |
 
-1. Follow [steps 1 and 2 from above](#development), the docker-compose file will automatically use the `.env` file in your project root
-1. Next run `docker-compose up`
-1. Follow [steps 4 and 5 from above](#development) to login and create your first admin user
+## 📂 Project Structure
 
-That's it! The Docker instance will help you get up and running quickly while also standardizing the development environment across your teams.
-
-## Questions
-
-If you have any issues or questions, reach out to us on [Discord](https://discord.com/invite/payload) or start a [GitHub discussion](https://github.com/payloadcms/payload/discussions).
+```
+src/
+├── app/                # Next.js App Router pages
+│   ├── (frontend)/     # Frontend pages (blog, home, etc.)
+│   └── (payload)/      # Payload admin pages
+├── collections/        # Payload Collection definitions
+│   ├── Posts/          # Blog posts logic, hooks, config
+│   ├── Authors/        # Authors collection
+│   └── Media/          # Media upload collection
+├── components/         # React components (RichText, Cards, etc.)
+├── scripts/            # Utility scripts (Seeding, migration)
+└── payload.config.ts   # Main Payload configuration
+```
